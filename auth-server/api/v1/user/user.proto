@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package user_v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "github.com/aywan/balun_miserv_s2/auth-server/pkg/grpc/v1/user_v1;user_v1";
+
+// Service for manipulate user information.
+service UserV1 {
+  // Create new user.
+  rpc Create(CreateRequest) returns (CreateResponse);
+  // Get user by ID.
+  rpc Get(UserIdRequest) returns (UserResponse);
+  // Update user data by ID.
+  rpc Update(UpdateRequest) returns  (google.protobuf.Empty);
+  // Delete user by ID.
+  rpc Delete(UserIdRequest) returns  (google.protobuf.Empty);
+}
+
+message CreateRequest {
+  UserData user = 1;
+  UserCredentials credentials = 2;
+}
+
+message CreateResponse {
+  int64 id = 1;
+}
+
+message UserIdRequest {
+  int64 id = 1;
+}
+
+message UpdateRequest {
+  int64 id = 1;
+  google.protobuf.StringValue name = 2;
+  google.protobuf.StringValue email = 3;
+}
+
+message UserResponse {
+  int64 id = 1;
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
+  UserData user = 4;
+}
+
+message UserData {
+  string name = 1;
+  string email = 2;
+  UserRole role = 5;
+}
+
+message UserCredentials {
+  string password = 3;
+  string password_confirm = 4;
+}
+
+enum UserRole {
+  UNDEFINED = 0;
+  USER = 1;
+  ADMIN = 2;
+}
