@@ -1,18 +1,18 @@
 LOCAL_BIN:=$(CURDIR)/../bin
 GO_EXE?=go
 
-.Phony:tidy
+.PHONY: tidy
 tidy:
 	$(GO_EXE) mod tidy
 
-.Phony:lint
+.PHONY: lint
 lint:
 	$(LOCAL_BIN)/golangci-lint run ./... --config ../.golangci.pipeline.yaml
 
-.Phony:tests
+.PHONY: tests
 tests:
 	$(GO_EXE) test ./...
 
-.Phony:generate
+.PHONY: generate
 generate:
 	true
