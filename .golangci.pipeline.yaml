@@ -46,7 +46,7 @@ issues:
   exclude-use-default: false
   exclude:
     # _ instead of err checks
-    # - G104
+    - G104
     - exported func .* returns unexported type .*, which can be annoying to use
     - should have a package comment
     - don't use an underscore in package name
