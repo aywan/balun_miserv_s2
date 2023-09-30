@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dir: [auth-server, chat-server]
+        dir: [auth-server, chat-server, chat-client]
     steps:
         - uses: actions/checkout@v4
 
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dir: [ auth-server, chat-server ]
+        dir: [auth-server, chat-server, chat-client]
     steps:
       - uses: actions/checkout@v4
 

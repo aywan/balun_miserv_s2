@@ -1,4 +1,4 @@
-REPOS:=auth-server chat-server
+REPOS:=auth-server chat-server chat-client
 LOCAL_BIN:=$(CURDIR)/bin
 
 .PHONY:install-deps
