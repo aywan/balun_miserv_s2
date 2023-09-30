@@ -15,4 +15,14 @@ tests:
 
 .PHONY: generate
 generate:
-	true
+	make generate-api-chat-v1
+
+.PHONY: generate-api-chat-v1
+generate-api-chat-v1:
+	mkdir -p pkg/grpc/v1/chat_v1
+	protoc --proto_path api/v1/chat \
+		--go_out=pkg/grpc/v1/chat_v1 --go_opt=paths=source_relative \
+		--plugin=protoc-gen-go=$(LOCAL_BIN)/protoc-gen-go \
+		--go-grpc_out=pkg/grpc/v1/chat_v1 --go-grpc_opt=paths=source_relative \
+		--plugin=protoc-gen-go-grpc=$(LOCAL_BIN)/protoc-gen-go-grpc \
+		api/v1/chat/chat.proto
