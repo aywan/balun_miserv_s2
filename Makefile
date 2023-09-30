@@ -13,7 +13,7 @@ lint:
 	@for dir in $(REPOS); do cd $$dir; make tidy; cd -; done
 
 .PHONY:generate
-lint:
+generate:
 	@set +e
 	@for dir in $(REPOS); do cd $$dir; make generate; cd -; done
 
