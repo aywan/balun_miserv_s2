@@ -7,6 +7,16 @@ install-deps:
 	GOBIN=$(LOCAL_BIN) go install -mod=mod google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 	GOBIN=$(LOCAL_BIN) go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.54.2
 
+.PHONY:tidy
+lint:
+	@set +e
+	@for dir in $(REPOS); do cd $$dir; make tidy; cd -; done
+
+.PHONY:generate
+lint:
+	@set +e
+	@for dir in $(REPOS); do cd $$dir; make generate; cd -; done
+
 .PHONY:lint
 lint:
 	@set +e
