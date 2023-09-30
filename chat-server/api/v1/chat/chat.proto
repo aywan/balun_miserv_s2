@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package user_v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/aywan/balun_miserv_s2/chat-server/pkg/grpc/v1/chat_v1;chat_v1";
+
+// Service for manipulate chat-rooms.
+service UserV1 {
+  // Create chat room.
+  rpc Create(CreateRequest) returns (CreateResponse);
+  // Delete chat room by Id.
+  rpc Delete(ChatIdRequest) returns  (google.protobuf.Empty);
+  // SendMessage - publish new message in chat room,
+  rpc SendMessage(SendMessageRequest) returns (google.protobuf.Empty);
+}
+
+message CreateRequest {
+  repeated string usernames = 1;
+}
+
+message CreateResponse {
+  int64 id = 1;
+}
+
+message ChatIdRequest {
+  int64 id = 1;
+}
+
+message SendMessageRequest {
+  reserved 1;
+  string from = 2;
+  string text = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
