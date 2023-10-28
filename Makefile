@@ -26,3 +26,15 @@ lint:
 tests:
 	@set +e
 	@for dir in $(REPOS); do cd $$dir; make tests; cd -; done
+
+.PHONY: dc-up
+dc-up:
+	docker compose up -d
+
+.PHONY: shell-auth-server
+shell-auth-server:
+	docker compose exec auth_service bash
+
+.PHONY: shell-chat-server
+shell-chat-server:
+	docker compose exec chat_service bash

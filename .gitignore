@@ -1,2 +1,5 @@
 .idea
 /bin/
+.env
+docker-compose.override.yml
+.go

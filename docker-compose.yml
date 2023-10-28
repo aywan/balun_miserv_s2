@@ -1,0 +1,65 @@
+x-go-service: &go-service
+  image: golang:1.21.3-bookworm
+  working_dir: /app
+  env_file:
+    - .env
+  depends_on:
+    - db
+  environment:
+    LOCAL_BIN: /local-bin/
+  command: [ "sleep", "infinity" ]
+
+x-migrate: &migrate
+  build:
+    context: ./docker/goose
+  restart: on-failure
+  depends_on:
+    - db
+
+services:
+  db:
+    image: postgres:15.4-bookworm
+    env_file:
+      - .env
+    ports:
+      - 12001:5432
+    volumes:
+      - ./docker/pg/entry/:/docker-entrypoint-initdb.d
+      - pg_data:/var/lib/postgresql/data
+
+  auth_migrate:
+    <<: *migrate
+    environment:
+      DATABASE: $AUTH_DB_NAME
+      DB_USER: $AUTH_DB_USER
+      DB_PASS: $AUTH_DB_PASS
+      DB_HOST: db
+    volumes:
+      - ./auth-server/migrations:/migrations
+
+  chat_migrate:
+    <<: *migrate
+    environment:
+      DATABASE: $CHAT_DB_NAME
+      DB_USER: $CHAT_DB_USER
+      DB_PASS: $CHAT_DB_PASS
+      DB_HOST: db
+    volumes:
+      - ./chat-server/migrations:/migrations
+
+  auth_service:
+    <<: *go-service
+    volumes:
+      - ./auth-server:/app
+      - ./bin:/local-bin
+      - .go:/go/pkg
+
+  chat_service:
+    <<: *go-service
+    volumes:
+      - ./chat-server:/app
+      - ./bin:/local-bin
+      - .go:/go/pkg
+
+volumes:
+  pg_data:
