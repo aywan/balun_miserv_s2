@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="auth-server" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="balun_miserv_s2" />
+    <target name="auth_service" />
+    <working_directory value="$PROJECT_DIR$/auth-server" />
+    <kind value="PACKAGE" />
+    <package value="github.com/aywan/balun_miserv_s2/auth-server/cmd" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/auth-server/cmd/main.go" />
+    <method v="2" />
+  </configuration>
+</component>

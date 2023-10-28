@@ -1,4 +1,4 @@
-LOCAL_BIN:=$(CURDIR)/../bin
+LOCAL_BIN?=$(CURDIR)/../bin
 GO_EXE?=go
 
 .PHONY: tidy
