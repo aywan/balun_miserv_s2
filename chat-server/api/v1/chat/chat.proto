@@ -15,10 +15,14 @@ service UserV1 {
   rpc Delete(ChatIdRequest) returns  (google.protobuf.Empty);
   // SendMessage - publish new message in chat room,
   rpc SendMessage(SendMessageRequest) returns (google.protobuf.Empty);
+  // GetMessages - get messages in chat room.
+  rpc GetMessages(GetMessagesRequest) returns (MessageListResponse);
 }
 
 message CreateRequest {
-  repeated string usernames = 1;
+  repeated int64 users = 1;
+  int64 owner_id = 2;
+  string name = 3;
 }
 
 message CreateResponse {
@@ -30,8 +34,35 @@ message ChatIdRequest {
 }
 
 message SendMessageRequest {
-  reserved 1;
-  string from = 2;
-  string text = 3;
-  google.protobuf.Timestamp timestamp = 4;
+  int64 chat_id = 1;
+  MessageType type = 3;
+  int64 user_id = 4;
+  string text = 5;
+}
+
+message GetMessagesRequest {
+  int64 chat_id = 1;
+  int64 limit = 2;
+  int64 after_message_id = 3;
+  int64 before_message_id = 4;
+}
+
+message MessageListResponse {
+  repeated Message items = 1;
+  bool has_next = 2;
+  int64 next_id = 3;
+}
+
+message Message {
+  int64 id = 1;
+  google.protobuf.Timestamp created_at = 2;
+  MessageType type = 3;
+  optional int64 user_id = 4;
+  string text = 5;
+}
+
+enum MessageType {
+  UNDEFINED = 0;
+  SYSTEM = 1;
+  USER = 2;
 }
