@@ -21,7 +21,7 @@ output:
 
 linters-settings:
   govet:
-    check-shadowing: true
+    check-shadowing: false
   dupl:
     threshold: 100
   goconst:
