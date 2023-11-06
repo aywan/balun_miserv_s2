@@ -1,18 +1,13 @@
 package config
 
-// Mode - represents the application mode.
-type Mode string
-
-const (
-	// DevMode - means application in development mode.
-	DevMode = Mode("dev")
-	// ProdMode - means application in production mode.
-	ProdMode = Mode("prod")
+import (
+	"github.com/aywan/balun_miserv_s2/shared/lib/db"
+	"github.com/aywan/balun_miserv_s2/shared/lib/logger"
 )
 
 // Config full application configuration.
 type Config struct {
-	Mode   Mode     `envconfig:"mode"`
-	Server Server   `envconfig:"server"`
-	Db     DbConfig `envconfig:"db"`
+	Mode   logger.Mode `envconfig:"mode"`
+	Server Server      `envconfig:"server"`
+	Db     db.Config   `envconfig:"db"`
 }

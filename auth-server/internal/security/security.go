@@ -6,7 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-const pwdCost = 14
+const pwdCost = 13
 
 // HashPassword computes the password hash.
 func HashPassword(password string) (string, error) {
