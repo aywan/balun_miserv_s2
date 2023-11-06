@@ -1,5 +1,6 @@
 REPOS:=auth-server chat-server chat-client
 LOCAL_BIN:=$(CURDIR)/bin
+LIBS:=$(CURDIR)/shared/lib
 
 .PHONY: install-deps
 install-deps:
@@ -10,7 +11,8 @@ install-deps:
 .PHONY: tidy
 tidy:
 	@set +e
-	@for dir in $(REPOS); do cd $$dir; make tidy; cd -; done
+	@for dir in $(REPOS); do echo "tidy for $$dir"; cd $$dir; make tidy; cd - > /dev/null; done
+	@for dir in $(LIBS)/*/; do echo "tidy for $$dir"; cd $$dir; make tidy; cd - > /dev/null; done
 
 .PHONY: generate
 generate:
@@ -20,12 +22,14 @@ generate:
 .PHONY: lint
 lint:
 	@set +e
-	@for dir in $(REPOS); do cd $$dir; make lint; cd -; done
+	@for dir in $(REPOS); do echo "lint for $$dir"; cd $$dir; make lint; @cd - > /dev/null; done
+	@for dir in $(LIBS)/*/; do echo "lint for $$dir"; cd $$dir; make lint; @cd - > /dev/null; done
 
 .PHONY: tests
 tests:
 	@set +e
-	@for dir in $(REPOS); do cd $$dir; make tests; cd -; done
+	@for dir in $(REPOS); do echo "tests for $$dir"; cd $$dir; make tests; @cd - > /dev/null; done
+	@for dir in $(LIBS)/*/; do echo "tests for $$dir"; cd $$dir; make tests; @cd - > /dev/null; done
 
 .PHONY: dc-up
 dc-up:
