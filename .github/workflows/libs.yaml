@@ -1,4 +1,4 @@
-name: Go
+name: Go libs
 
 on:
   push:
@@ -9,14 +9,14 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         dir:
-          - auth-server
-          - chat-server
-          - chat-client
+          - shared/lib/db
+          - shared/lib/logger
+          - shared/lib/runutil
     steps:
         - uses: actions/checkout@v4
 
@@ -25,10 +25,6 @@ jobs:
           with:
             go-version: '1.21.1'
             cache-dependency-path: ${{matrix.dir}}/go.sum
-
-        - name: Build
-          run: go build -o ./bin/ -v ./...
-          working-directory: ${{matrix.dir}}
 
         - name: Test
           run: go test -v ./...
@@ -40,9 +36,9 @@ jobs:
     strategy:
       matrix:
         dir:
-          - auth-server
-          - chat-server
-          - chat-client
+          - shared/lib/db
+          - shared/lib/logger
+          - shared/lib/runutil
     steps:
       - uses: actions/checkout@v4
 
@@ -55,5 +51,5 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: 'v1.54.2'
-          args: --timeout=30m --config=../.golangci.pipeline.yaml --issues-exit-code=0
+          args: --timeout=30m --config=../../../.golangci.pipeline.yaml --issues-exit-code=0
           working-directory: ${{matrix.dir}}
