@@ -20,16 +20,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserV1_Create_FullMethodName      = "/user_v1.UserV1/Create"
-	UserV1_Delete_FullMethodName      = "/user_v1.UserV1/Delete"
-	UserV1_SendMessage_FullMethodName = "/user_v1.UserV1/SendMessage"
-	UserV1_GetMessages_FullMethodName = "/user_v1.UserV1/GetMessages"
+	ChatV1_Create_FullMethodName      = "/user_v1.ChatV1/Create"
+	ChatV1_Delete_FullMethodName      = "/user_v1.ChatV1/Delete"
+	ChatV1_SendMessage_FullMethodName = "/user_v1.ChatV1/SendMessage"
+	ChatV1_GetMessages_FullMethodName = "/user_v1.ChatV1/GetMessages"
 )
 
-// UserV1Client is the client API for UserV1 service.
+// ChatV1Client is the client API for ChatV1 service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserV1Client interface {
+type ChatV1Client interface {
 	// Create chat room.
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 	// Delete chat room by Id.
@@ -40,54 +40,54 @@ type UserV1Client interface {
 	GetMessages(ctx context.Context, in *GetMessagesRequest, opts ...grpc.CallOption) (*MessageListResponse, error)
 }
 
-type userV1Client struct {
+type chatV1Client struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserV1Client(cc grpc.ClientConnInterface) UserV1Client {
-	return &userV1Client{cc}
+func NewChatV1Client(cc grpc.ClientConnInterface) ChatV1Client {
+	return &chatV1Client{cc}
 }
 
-func (c *userV1Client) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+func (c *chatV1Client) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
 	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, UserV1_Create_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, ChatV1_Create_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userV1Client) Delete(ctx context.Context, in *ChatIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *chatV1Client) Delete(ctx context.Context, in *ChatIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, UserV1_Delete_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, ChatV1_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userV1Client) SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *chatV1Client) SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, UserV1_SendMessage_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, ChatV1_SendMessage_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userV1Client) GetMessages(ctx context.Context, in *GetMessagesRequest, opts ...grpc.CallOption) (*MessageListResponse, error) {
+func (c *chatV1Client) GetMessages(ctx context.Context, in *GetMessagesRequest, opts ...grpc.CallOption) (*MessageListResponse, error) {
 	out := new(MessageListResponse)
-	err := c.cc.Invoke(ctx, UserV1_GetMessages_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, ChatV1_GetMessages_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UserV1Server is the server API for UserV1 service.
-// All implementations must embed UnimplementedUserV1Server
+// ChatV1Server is the server API for ChatV1 service.
+// All implementations must embed UnimplementedChatV1Server
 // for forward compatibility
-type UserV1Server interface {
+type ChatV1Server interface {
 	// Create chat room.
 	Create(context.Context, *CreateRequest) (*CreateResponse, error)
 	// Delete chat room by Id.
@@ -96,132 +96,132 @@ type UserV1Server interface {
 	SendMessage(context.Context, *SendMessageRequest) (*emptypb.Empty, error)
 	// GetMessages - get messages in chat room.
 	GetMessages(context.Context, *GetMessagesRequest) (*MessageListResponse, error)
-	mustEmbedUnimplementedUserV1Server()
+	mustEmbedUnimplementedChatV1Server()
 }
 
-// UnimplementedUserV1Server must be embedded to have forward compatible implementations.
-type UnimplementedUserV1Server struct {
+// UnimplementedChatV1Server must be embedded to have forward compatible implementations.
+type UnimplementedChatV1Server struct {
 }
 
-func (UnimplementedUserV1Server) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
+func (UnimplementedChatV1Server) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedUserV1Server) Delete(context.Context, *ChatIdRequest) (*emptypb.Empty, error) {
+func (UnimplementedChatV1Server) Delete(context.Context, *ChatIdRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedUserV1Server) SendMessage(context.Context, *SendMessageRequest) (*emptypb.Empty, error) {
+func (UnimplementedChatV1Server) SendMessage(context.Context, *SendMessageRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendMessage not implemented")
 }
-func (UnimplementedUserV1Server) GetMessages(context.Context, *GetMessagesRequest) (*MessageListResponse, error) {
+func (UnimplementedChatV1Server) GetMessages(context.Context, *GetMessagesRequest) (*MessageListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMessages not implemented")
 }
-func (UnimplementedUserV1Server) mustEmbedUnimplementedUserV1Server() {}
+func (UnimplementedChatV1Server) mustEmbedUnimplementedChatV1Server() {}
 
-// UnsafeUserV1Server may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserV1Server will
+// UnsafeChatV1Server may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ChatV1Server will
 // result in compilation errors.
-type UnsafeUserV1Server interface {
-	mustEmbedUnimplementedUserV1Server()
+type UnsafeChatV1Server interface {
+	mustEmbedUnimplementedChatV1Server()
 }
 
-func RegisterUserV1Server(s grpc.ServiceRegistrar, srv UserV1Server) {
-	s.RegisterService(&UserV1_ServiceDesc, srv)
+func RegisterChatV1Server(s grpc.ServiceRegistrar, srv ChatV1Server) {
+	s.RegisterService(&ChatV1_ServiceDesc, srv)
 }
 
-func _UserV1_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatV1_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserV1Server).Create(ctx, in)
+		return srv.(ChatV1Server).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserV1_Create_FullMethodName,
+		FullMethod: ChatV1_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserV1Server).Create(ctx, req.(*CreateRequest))
+		return srv.(ChatV1Server).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserV1_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatV1_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ChatIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserV1Server).Delete(ctx, in)
+		return srv.(ChatV1Server).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserV1_Delete_FullMethodName,
+		FullMethod: ChatV1_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserV1Server).Delete(ctx, req.(*ChatIdRequest))
+		return srv.(ChatV1Server).Delete(ctx, req.(*ChatIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserV1_SendMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatV1_SendMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendMessageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserV1Server).SendMessage(ctx, in)
+		return srv.(ChatV1Server).SendMessage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserV1_SendMessage_FullMethodName,
+		FullMethod: ChatV1_SendMessage_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserV1Server).SendMessage(ctx, req.(*SendMessageRequest))
+		return srv.(ChatV1Server).SendMessage(ctx, req.(*SendMessageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserV1_GetMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatV1_GetMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMessagesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserV1Server).GetMessages(ctx, in)
+		return srv.(ChatV1Server).GetMessages(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserV1_GetMessages_FullMethodName,
+		FullMethod: ChatV1_GetMessages_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserV1Server).GetMessages(ctx, req.(*GetMessagesRequest))
+		return srv.(ChatV1Server).GetMessages(ctx, req.(*GetMessagesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// UserV1_ServiceDesc is the grpc.ServiceDesc for UserV1 service.
+// ChatV1_ServiceDesc is the grpc.ServiceDesc for ChatV1 service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UserV1_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user_v1.UserV1",
-	HandlerType: (*UserV1Server)(nil),
+var ChatV1_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user_v1.ChatV1",
+	HandlerType: (*ChatV1Server)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Create",
-			Handler:    _UserV1_Create_Handler,
+			Handler:    _ChatV1_Create_Handler,
 		},
 		{
 			MethodName: "Delete",
-			Handler:    _UserV1_Delete_Handler,
+			Handler:    _ChatV1_Delete_Handler,
 		},
 		{
 			MethodName: "SendMessage",
-			Handler:    _UserV1_SendMessage_Handler,
+			Handler:    _ChatV1_SendMessage_Handler,
 		},
 		{
 			MethodName: "GetMessages",
-			Handler:    _UserV1_GetMessages_Handler,
+			Handler:    _ChatV1_GetMessages_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
