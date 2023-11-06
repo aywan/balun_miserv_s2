@@ -53,6 +53,7 @@ services:
       - ./auth-server:/app
       - ./bin:/local-bin
       - .go:/go/pkg
+      - ./shared:/shared
 
   chat_service:
     <<: *go-service
