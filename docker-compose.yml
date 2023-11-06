@@ -61,6 +61,7 @@ services:
       - ./chat-server:/app
       - ./bin:/local-bin
       - .go:/go/pkg
+      - ./shared:/shared
 
 volumes:
   pg_data:

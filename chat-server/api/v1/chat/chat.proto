@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 option go_package = "github.com/aywan/balun_miserv_s2/chat-server/pkg/grpc/v1/chat_v1;chat_v1";
 
 // Service for manipulate chat-rooms.
-service UserV1 {
+service ChatV1 {
   // Create chat room.
   rpc Create(CreateRequest) returns (CreateResponse);
   // Delete chat room by Id.
