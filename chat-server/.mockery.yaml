@@ -1,0 +1,14 @@
+quiet: False
+with-expecter: True
+mockname: "Mock{{.InterfaceName}}"
+filename: "{{.InterfaceName}}.mock.gen.go"
+dir: "{{.InterfaceDir}}/mocks"
+outpkg: "mocks"
+packages:
+  github.com/aywan/balun_miserv_s2/chat-server/internal/repository:
+    interfaces:
+      Chat:
+  github.com/aywan/balun_miserv_s2/chat-server/internal/service:
+    interfaces:
+      Chat:
+

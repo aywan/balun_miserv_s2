@@ -7,6 +7,7 @@ require (
 	github.com/aywan/balun_miserv_s2/shared/lib/db v0.0.0
 	github.com/aywan/balun_miserv_s2/shared/lib/logger v0.0.0
 	github.com/aywan/balun_miserv_s2/shared/lib/runutil v0.0.0
+	github.com/brianvoe/gofakeit/v6 v6.24.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.8.4
 	go.uber.org/fx v1.20.1
@@ -34,6 +35,7 @@ require (
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
+	github.com/stretchr/objx v0.5.0 // indirect
 	go.uber.org/dig v1.17.0 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/crypto v0.11.0 // indirect
