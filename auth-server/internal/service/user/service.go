@@ -7,7 +7,7 @@ import (
 
 	"github.com/aywan/balun_miserv_s2/auth-server/internal/model"
 	"github.com/aywan/balun_miserv_s2/auth-server/internal/repository"
-	dto2 "github.com/aywan/balun_miserv_s2/auth-server/internal/repository/audit/dto"
+	auditDto "github.com/aywan/balun_miserv_s2/auth-server/internal/repository/audit/dto"
 	"github.com/aywan/balun_miserv_s2/auth-server/internal/repository/user/dto"
 	"github.com/aywan/balun_miserv_s2/auth-server/internal/security"
 	"github.com/aywan/balun_miserv_s2/auth-server/internal/service"
@@ -15,7 +15,10 @@ import (
 	"go.uber.org/zap"
 )
 
-const auditUserRef = "user"
+const auditUserRef model.AuditReference = "user"
+const auditNewUser model.AuditAction = "new user"
+const auditUpdateUser model.AuditAction = "update user"
+const auditDeleteUser model.AuditAction = "delete user"
 
 type Service struct {
 	log       *zap.Logger
@@ -67,11 +70,11 @@ func (s *Service) Create(ctx context.Context, data model.UserData) (int64, error
 			return err
 		}
 
-		_, err = s.auditRepo.Insert(ctx, dto2.InsertDTO{
+		_, err = s.auditRepo.Insert(ctx, auditDto.InsertDTO{
 			CreatorId:   sql.NullInt64{},
 			Reference:   auditUserRef,
 			ReferenceID: userId,
-			Action:      "new user",
+			Action:      auditNewUser,
 		})
 
 		if err != nil {
@@ -100,11 +103,11 @@ func (s *Service) Update(ctx context.Context, userId int64, data dto.UpdateDTO) 
 			return err
 		}
 
-		_, err = s.auditRepo.Insert(ctx, dto2.InsertDTO{
+		_, err = s.auditRepo.Insert(ctx, auditDto.InsertDTO{
 			CreatorId:   sql.NullInt64{},
 			Reference:   auditUserRef,
 			ReferenceID: userId,
-			Action:      "update user",
+			Action:      auditUpdateUser,
 		})
 
 		return err
@@ -126,11 +129,11 @@ func (s *Service) Delete(ctx context.Context, userId int64) error {
 			return err
 		}
 
-		_, err = s.auditRepo.Insert(ctx, dto2.InsertDTO{
+		_, err = s.auditRepo.Insert(ctx, auditDto.InsertDTO{
 			CreatorId:   sql.NullInt64{},
 			Reference:   auditUserRef,
 			ReferenceID: userId,
-			Action:      "delete user",
+			Action:      auditDeleteUser,
 		})
 
 		return err

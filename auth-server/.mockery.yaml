@@ -1,0 +1,15 @@
+quiet: False
+with-expecter: True
+mockname: "Mock{{.InterfaceName}}"
+filename: "{{.InterfaceName}}.mock.gen.go"
+dir: "{{.InterfaceDir}}/mocks"
+outpkg: "mocks"
+packages:
+  github.com/aywan/balun_miserv_s2/auth-server/internal/repository:
+    interfaces:
+      User:
+      Audit:
+  github.com/aywan/balun_miserv_s2/auth-server/internal/service:
+    interfaces:
+      User:
+

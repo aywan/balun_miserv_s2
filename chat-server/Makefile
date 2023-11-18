@@ -16,6 +16,11 @@ tests:
 .PHONY: generate
 generate:
 	make generate-api-chat-v1
+	make mocks
+
+.PHONY: mocks
+mocks:
+	$(LOCAL_BIN)/mockery
 
 .PHONY: generate-api-chat-v1
 generate-api-chat-v1:

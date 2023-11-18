@@ -1,5 +1,6 @@
 LOCAL_BIN?=$(CURDIR)/../bin
 GO_EXE?=go
+export PATH:=$(PATH):$(LOCAL_BIN)
 
 .PHONY: tidy
 tidy:
@@ -16,6 +17,11 @@ tests:
 .PHONY: generate
 generate:
 	make generate-api-user-v1
+	make mocks
+
+.PHONY: mocks
+mocks:
+	$(LOCAL_BIN)/mockery
 
 .PHONY: generate-api-user-v1
 generate-api-user-v1:
